@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#185b50">
+  <meta name="description"
+        content="Личное пространство для удалённой работы">
+  <title>Дома — удалённая работа</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#home">дома /</a>
+    <p class="subtitle">Твоё рабочее пространство</p>
+
+    <nav aria-label="Разделы сайта">
+      <a href="#home">Обзор дня</a>
+      <a href="#tasks">Мои задачи</a>
+      <a href="#files">Рабочие файлы</a>
+      <a href="#focus">Таймер</a>
+      <a href="#notes-section">Заметки</a>
+    </nav>
+
+    <div class="sidebar-note">
+      Маленький шаг каждый день.
+      <p>Работай в своём ритме и не забывай отдыхать.</p>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <span id="date"></span>
+      <button id="themeButton" class="secondary"
+              type="button" aria-pressed="false">
+        Тёмная тема
+      </button>
+    </header>
+
+    <section id="home" class="hero">
+      <div>
+        <p class="eyebrow">РАБОТА В ТВОЁМ РИТМЕ</p>
+        <h1>Ближе к делу.<br><span>Где бы ты ни был.</span></h1>
+        <p>
+          Задачи, файлы и идеи в одном месте.
+          Создай пространство для спокойной работы.
+        </p>
+        <a class="button" href="#tasks">Спланировать день</a>
+      </div>
+
+      <div class="hero-card">
+        <span class="hero-symbol" aria-hidden="true">✳</span>
+        <h2>Место для главного</h2>
+        <p>Одна задача. Один шаг. Один хороший день.</p>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Статистика">
+      <div>
+        <span>Всего задач</span>
+        <strong id="totalTasks">0</strong>
+      </div>
+      <div>
+        <span>Выполнено</span>
+        <strong id="doneTasks">0</strong>
+      </div>
+      <div>
+        <span>Файлов</span>
+        <strong id="totalFiles">0</strong>
+      </div>
+    </section>
+
+    <section id="tasks" class="panel">
+      <p class="eyebrow">ШАГ ЗА ШАГОМ</p>
+      <h2>Мои задачи</h2>
+
+      <form id="taskForm">
+        <input id="taskInput" type="text" maxlength="180"
+               placeholder="Что нужно сделать?"
+               aria-label="Название задачи" required>
+
+        <select id="taskPriority" aria-label="Приоритет">
+          <option value="normal">Обычный приоритет</option>
+          <option value="high">Важно</option>
+        </select>
+
+        <button type="submit">Добавить</button>
+      </form>
+
+      <div class="filters" role="group" aria-label="Фильтр задач">
+        <button type="button" data-filter="all"
+                class="active" aria-pressed="true">Все</button>
+        <button type="button" data-filter="active"
+                aria-pressed="false">В работе</button>
+        <button type="button" data-filter="done"
+                aria-pressed="false">Готово</button>
+      </div>
+
+      <div id="taskList"></div>
+    </section>
+
+    <div class="columns">
+      <section id="files" class="panel">
+        <p class="eyebrow">ПОД РУКОЙ</p>
+        <h2>Рабочие файлы</h2>
+
+        <label id="dropzone" class="dropzone">
+          <strong>＋ Прикрепить файлы</strong>
+          <span>Нажми или перетащи файлы сюда</span>
+          <small>До 10 МБ на файл · максимум 30 файлов</small>
+          <input id="fileInput" type="file" multiple>
+        </label>
+
+        <p class="hint">
+          Файлы остаются только в этой вкладке до перезагрузки.
+          Нажми на название, чтобы скачать файл.
+        </p>
+
+        <div id="fileList"></div>
+      </section>
+
+      <section id="focus" class="panel focus-panel">
+        <p class="eyebrow">ВРЕМЯ ДЛЯ ГЛАВНОГО</p>
+        <h2>Таймер фокуса</h2>
+
+        <div class="timer-modes" role="group" aria-label="Режим таймера">
+          <button type="button" data-minutes="25"
+                  class="active" aria-pressed="true">Фокус · 25 мин</button>
+          <button type="button" data-minutes="5"
+                  aria-pressed="false">Перерыв · 5 мин</button>
+        </div>
+
+        <div id="timerDisplay" class="timer" role="timer"
+             aria-label="Оставшееся время">25:00</div>
+
+        <p id="timerStatus">Выдели время для одной задачи.</p>
+
+        <div class="timer-actions">
+          <button id="startTimer" type="button">Начать</button>
+          <button id="resetTimer" class="secondary"
+                  type="button">Сбросить</button>
+        </div>
+      </section>
+    </div>
+
+    <section id="notes-section" class="panel">
+      <p class="eyebrow">ОСВОБОДИ МЫСЛИ</p>
+      <h2>Заметки на полях</h2>
+
+      <textarea id="notes" maxlength="20000"
+                aria-label="Рабочие заметки"
+                placeholder="Идеи, планы и то, что важно не забыть…"></textarea>
+
+      <p id="saveStatus" class="hint">
+        Сохраняются автоматически в этом браузере.
+      </p>
+    </section>
+
+    <footer>
+      <span>дома / Работай с удовольствием.</span>
+      <button id="exportButton" class="secondary" type="button">
+        Скачать задачи и заметки
+      </button>
+    </footer>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
